@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgZapatillas" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4F4F5" />
+      <stop offset="100%" stop-color="#E4E4E7" />
+    </linearGradient>
+    <linearGradient id="voltAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CCFF00" />
+      <stop offset="100%" stop-color="#99EE00" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgZapatillas)" />
+  <!-- Dynamic Speed Lines -->
+  <path d="M 60 280 L 340 280" stroke="#D4D4D8" stroke-width="2" stroke-dasharray="8 6" />
+  <path d="M 100 300 L 300 300" stroke="#E4E4E7" stroke-width="2" stroke-dasharray="4 4" />
+  <!-- Sneaker Silhouette -->
+  <g transform="translate(70, 110) scale(1.3)" fill="none" stroke="#27272A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 20 110 C 35 110 50 115 80 115 C 130 115 155 105 180 85 C 185 80 185 65 175 60 C 160 55 145 65 135 70 C 120 78 100 80 85 75 C 75 70 65 50 50 50 C 40 50 35 65 30 75 L 20 110 Z" fill="#FFFFFF" />
+    <!-- Sole -->
+    <path d="M 15 112 C 40 112 70 120 110 120 C 150 120 175 112 185 95 L 180 102 C 160 122 130 128 80 128 C 45 128 20 122 15 112 Z" fill="#18181B" stroke="#18181B" />
+    <!-- Volt Cushioning Pod -->
+    <ellipse cx="65" cy="120" rx="18" ry="4" fill="url(#voltAccent)" stroke="none" />
+    <!-- Swoosh / Speed Slash -->
+    <path d="M 70 82 Q 115 85 145 68" stroke="url(#voltAccent)" stroke-width="6" />
+    <!-- Laces -->
+    <line x1="85" y1="65" x2="105" y2="72" stroke="#71717A" stroke-width="3" />
+    <line x1="95" y1="58" x2="115" y2="65" stroke="#71717A" stroke-width="3" />
+    <line x1="105" y1="52" x2="125" y2="58" stroke="#71717A" stroke-width="3" />
+  </g>
+  <!-- Text Label -->
+  <text x="200" y="340" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" letter-spacing="3" fill="#71717A">
+    SPORTX • CALZADO
+  </text>
+</svg>

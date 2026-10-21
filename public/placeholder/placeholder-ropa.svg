@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgRopa" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4F4F5" />
+      <stop offset="100%" stop-color="#E4E4E7" />
+    </linearGradient>
+    <linearGradient id="voltAccentRopa" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CCFF00" />
+      <stop offset="100%" stop-color="#99EE00" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgRopa)" />
+  <!-- T-Shirt Graphic -->
+  <g transform="translate(90, 80) scale(1.1)" fill="#FFFFFF" stroke="#27272A" stroke-width="5" stroke-linejoin="round">
+    <path d="M 60 20 L 30 50 L 5 80 L 45 105 L 60 80 L 60 180 L 140 180 L 140 80 L 155 105 L 195 80 L 170 50 L 140 20 C 130 35 70 35 60 20 Z" />
+    <!-- Collar Detail -->
+    <path d="M 60 20 C 70 35 130 35 140 20" fill="none" stroke="#27272A" stroke-width="5" />
+    <!-- Chest Tech Slash -->
+    <path d="M 75 80 L 125 70" fill="none" stroke="url(#voltAccentRopa)" stroke-width="6" stroke-linecap="round" />
+  </g>
+  <!-- Text Label -->
+  <text x="200" y="340" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" letter-spacing="3" fill="#71717A">
+    SPORTX • APPAREL
+  </text>
+</svg>

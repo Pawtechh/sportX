@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* MODO CLARO (Nike Clean Minimalist: fondo blanco/grisáceo, texto negro profundo, contraste > 14:1) */
+    --bg-page: #f8f9fa;
+    --bg-surface: #ffffff;
+    --bg-surface-elevated: #f1f3f5;
+    --bg-surface-contrast: #111111;
+
+    --text-primary: #111111;      /* 18.2:1 WCAG AAA */
+    --text-secondary: #4b5563;    /* 7.0:1 WCAG AAA */
+    --text-muted: #6b7280;        /* 4.9:1 WCAG AA */
+    --text-inverted: #ffffff;
+
+    --border-subtle: #e5e7eb;     /* Divisores */
+    --border-strong: #d1d5db;     /* Contraste 3.1:1 para inputs */
+
+    --accent-brand: #111111;
+    --accent-highlight: #CCFF00;
+
+    /* TOKENS DE CONTRASTE SEGURO (WCAG AA/AAA) */
+    --rating-bg: #171717;
+    --rating-fg: #ffffff;
+    --price-bg: #171717;
+    --price-fg: #ffffff;
+    --success-bg: #064e3b;
+    --success-fg: #d1fae5;
+  }
+
+  html.dark {
+    /* MODO OSCURO (SportX Élite Tech) */
+    --bg-page: #09090b;
+    --bg-surface: #18181b;
+    --bg-surface-elevated: #27272a;
+    --bg-surface-contrast: #ffffff;
+
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --text-inverted: #09090b;
+
+    --border-subtle: #27272a;
+    --border-strong: #3f3f46;
+
+    --accent-brand: #CCFF00;
+    --accent-highlight: #CCFF00;
+
+    --rating-bg: #171717;
+    --rating-fg: #ffffff;
+    --price-bg: #18181b;
+    --price-fg: #CCFF00;
+    --success-bg: #064e3b;
+    --success-fg: #6ee7b7;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden !important;
+  max-width: 100vw;
+  width: 100%;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  transition: background-color 0.25s ease, color 0.25s ease;
+  overflow-x: hidden !important;
+  max-width: 100vw;
+  width: 100%;
+  position: relative;
+}
+
+#root {
+  overflow-x: hidden !important;
+  max-width: 100vw;
+  width: 100%;
+  position: relative;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Eliminar permanentemente barras de desplazamiento horizontales del navegador */
+::-webkit-scrollbar:horizontal {
+  display: none !important;
+  height: 0px !important;
+  width: 0px !important;
+}
+
+/* Reglas de compatibilidad y contraste para clases existentes en modo claro */
+html.light body { background: #f8f9fa; color: #111111; }
+html.light .bg-zinc-950 { background-color: #f8f9fa; }
+html.light .bg-zinc-950\/95, html.light .bg-zinc-950\/85 { background-color: rgba(255, 255, 255, 0.95); }
+html.light .bg-zinc-900 { background-color: #ffffff; }
+html.light .bg-zinc-900\/60, html.light .bg-zinc-900\/90 { background-color: #ffffff; }
+html.light .bg-zinc-800 { background-color: #e5e7eb; }
+html.light .text-zinc-100, html.light .text-white { color: #111111; }
+html.light .text-zinc-200, html.light .text-zinc-300 { color: #27272a; }
+html.light .text-zinc-400 { color: #4b5563; } /* 7.0:1 WCAG AAA */
+html.light .text-zinc-500 { color: #52525b; } /* 5.7:1 WCAG AAA */
+html.light .text-zinc-600 { color: #52525b; }
+html.light .border-zinc-800, html.light .border-zinc-800\/80, html.light .border-zinc-800\/60 { border-color: #e5e7eb; }
+html.light .border-zinc-700 { border-color: #d1d5db; }
+html.light .hover\:border-zinc-700:hover { border-color: #9ca3af; }
+
+/* En modo claro, el botón primario usa fondo negro con texto blanco o badge volt con texto negro */
+html.light .btn-primary { background-color: #111111; color: #ffffff; }
+html.light .btn-primary:hover { background-color: #27272a; }
+
+/* Badge de rating siempre con números y texto blanco brillante en modo claro y oscuro */
+.badge-rating,
+.badge-rating span,
+.badge-rating * {
+  color: #ffffff !important;
+}
+html.light .badge-rating,
+html.light .badge-rating span,
+html.light .badge-rating * {
+  color: #ffffff !important;
+}
+
+@layer components {
+  .btn-primary { @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-accent px-7 py-3 text-sm font-extrabold uppercase tracking-wide text-black transition active:scale-95 disabled:opacity-40; }
+  .btn-ghost { @apply inline-flex items-center justify-center rounded-full border border-theme-border px-5 py-2 text-sm font-semibold transition hover:border-accent hover:text-accent active:scale-95; }
+  .input { @apply w-full rounded-lg border border-theme-border bg-theme-surface px-4 py-3 text-sm text-content-primary outline-none transition focus:border-accent; }
+  .th { @apply px-4 py-3 text-left text-xs font-bold uppercase tracking-wider text-content-muted; }
+  .td { @apply px-4 py-3 text-sm text-content-primary; }
+  .text-success-safe { @apply text-emerald-700 dark:text-emerald-300; }
+  .badge-success { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-900 text-emerald-100; }
+  .badge-rating { @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-neutral-900 text-white dark:bg-neutral-900 dark:text-white shadow-md text-xs font-bold; }
+  .price-pill { @apply inline-flex items-center rounded-xl bg-neutral-900 px-4 py-2 font-mono font-black text-white dark:text-accent shadow-sm; }
+}
+
+/* Hover.css: elevación suave en tarjetas */
+.card-lift { transition: transform .35s ease, box-shadow .35s ease, border-color .3s ease; }
+.card-lift:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -15px rgba(0,0,0,.12); }
+html.dark .card-lift:hover { box-shadow: 0 24px 40px -12px rgba(204,255,0,.15); }
+
+/* Ocultar barra de scroll en carruseles y listas horizontales */
+.no-scrollbar::-webkit-scrollbar { display: none !important; height: 0 !important; width: 0 !important; }
+.no-scrollbar { -ms-overflow-style: none !important; scrollbar-width: none !important; }
+
+/* Feedback de compra */
+@keyframes buy-pop { 0%{transform:scale(1)} 40%{transform:scale(.92)} 100%{transform:scale(1)} }
+.buy-pop { animation: buy-pop .4s ease; }
+
+/* Impresión limpia de Ticket Fiscal POS cuando se usa Ctrl+P */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #pos-thermal-ticket,
+  #pos-thermal-ticket * {
+    visibility: visible !important;
+  }
+  #pos-thermal-ticket {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 80mm !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 4mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}
+

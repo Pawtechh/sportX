@@ -1,0 +1,25 @@
+# Dependencies & Build
+/node_modules/
+/dist/
+
+# Local Database & Runtime Data (root /data only, keep src/data!)
+/data/
+
+# Local Tunnel & CLI Binaries (avoid pushing >50MB binaries to GitHub)
+/bin/
+*.exe
+*.zip
+
+# GitHub Workflows (optional local CI)
+/.github/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# Logs & OS Metadata
+*.log
+.DS_Store
+Thumbs.db
+/.impeccable/

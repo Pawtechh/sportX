@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgDef" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4F4F5" />
+      <stop offset="100%" stop-color="#E4E4E7" />
+    </linearGradient>
+    <linearGradient id="voltDef" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CCFF00" />
+      <stop offset="100%" stop-color="#99EE00" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgDef)" />
+  <!-- SportX Minimal Logo Mark -->
+  <g transform="translate(140, 120)">
+    <polygon points="0,0 35,0 70,60 105,0 120,0 77,75 120,150 85,150 60,95 35,150 0,150 43,75" fill="#18181B" />
+    <polygon points="40,20 60,20 85,65 72,85" fill="url(#voltDef)" />
+  </g>
+  <text x="200" y="340" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" letter-spacing="3" fill="#71717A">
+    SPORTX • PERFORMANCE
+  </text>
+</svg>

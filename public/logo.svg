@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 50" fill="none">
+  <defs>
+    <linearGradient id="voltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CCFF00" />
+      <stop offset="100%" stop-color="#9EE600" />
+    </linearGradient>
+  </defs>
+
+  <!-- Dynamic Speed Wing 'X' Emblem -->
+  <g transform="translate(6, 2)">
+    <!-- Blade 1: Main Forward Thrust Wing (Volt) -->
+    <path d="M8 42L24 6H35L19 42H8Z" fill="url(#voltGrad)" />
+    <!-- Blade 2: Upper Stabilizer (Dark) -->
+    <path d="M21 6L29 20L24 28L13 6H21Z" fill="#111111" />
+    <!-- Blade 3: Lower Exhaust Fin (Dark) -->
+    <path d="M39 42L31 28L36 20L47 42H39Z" fill="#111111" />
+    <!-- Central Kinetic Core -->
+    <circle cx="29" cy="24" r="2.5" fill="#CCFF00" />
+  </g>
+
+  <!-- Typography: SPORT -->
+  <text x="64" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="34" letter-spacing="-1.5" fill="#111111">
+    SPORT
+  </text>
+
+  <!-- Typography: X in Volt -->
+  <text x="180" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif" font-weight="900" font-style="italic" font-size="36" letter-spacing="-1" fill="#CCFF00" stroke="#111111" stroke-width="0.8">
+    X
+  </text>
+</svg>
