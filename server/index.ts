@@ -37,13 +37,16 @@ app.use((err: any, _req: express.Request, res: express.Response, _next: express.
 });
 
 async function start() {
+  const port = Number(process.env.PORT ?? 3001);
+  app.listen(port, "0.0.0.0", () => {
+    console.log(`SportX API → http://0.0.0.0:${port}`);
+  });
   try {
     await initDatabase();
+    console.log("SportX DB initialized and ready.");
   } catch (err) {
     console.error("Warning initializing DB:", err);
   }
-  const port = Number(process.env.PORT ?? 3001);
-  app.listen(port, "0.0.0.0", () => console.log(`SportX API → http://0.0.0.0:${port}`));
 }
 
 start();

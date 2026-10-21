@@ -111,11 +111,9 @@ export async function initDatabase() {
     );
   `);
 
-  // Verificar cuántos productos con SKU válido hay en la base de datos
   const prodCount = await pgliteClient.query("SELECT count(*) as count FROM products WHERE sku IS NOT NULL AND sku != ''");
   const count = Number((prodCount.rows[0] as any)?.count ?? 0);
 
-  // Sembrar proyectos internos si la tabla está vacía
   try {
     const projCheck = await pgliteClient.query("SELECT count(*) as count FROM projects");
     const projCount = Number((projCheck.rows[0] as any)?.count ?? 0);
@@ -147,7 +145,6 @@ export async function initDatabase() {
   if (count < 52) {
     console.log("Sincronizando catálogo completo con SKU para Zapatillas, Ropa, Pelotas y Accesorios...");
 
-    // Asegurar usuarios
     const hash = await bcrypt.hash("password123", 10);
     await pgliteClient.exec(`
       INSERT INTO users (email, name, role, password_hash, avatar_url)
@@ -165,8 +162,8 @@ export async function initDatabase() {
     const buyerRes = await pgliteClient.query("SELECT id FROM users WHERE role = 'consumer' LIMIT 1");
     const buyerId = Number((buyerRes.rows[0] as any)?.id ?? 1);
 
-    // Limpiar productos viejos para sembrar los 52 productos con el esquema nuevo
     await pgliteClient.exec(`
+      BEGIN;
       DELETE FROM reviews;
       DELETE FROM inventory_logs;
       DELETE FROM order_items;
@@ -195,13 +192,11 @@ export async function initDatabase() {
       );
       const prodId = Number((inserted.rows[0] as any)?.id);
 
-      // Audit log
       await pgliteClient.query(
         `INSERT INTO inventory_logs (product_id, actor_id, change, reason) VALUES ($1, $2, $3, $4)`,
         [prodId, adminId, p.stock, `Stock inicial de catálogo SKU ${p.sku}`]
       );
 
-      // 2 reseñas por producto
       await pgliteClient.query(
         `INSERT INTO reviews (product_id, user_id, rating, comment) VALUES ($1, $2, $3, $4)`,
         [prodId, buyerId, 5, "Increíble amortiguación y respuesta. Los acabados son dignos de la élite deportiva."]
@@ -212,13 +207,16 @@ export async function initDatabase() {
       );
     }
 
+    await pgliteClient.exec("COMMIT;");
     console.log(`¡52 productos reales sembrados con éxito con SKU, reseñas y auditoría!`);
-  }
-
-  for (const p of SEED_PRODUCTS) {
-    await pgliteClient.query(
-      "UPDATE products SET images = $1 WHERE sku = $2",
-      [JSON.stringify(p.images), p.sku]
-    );
+  } else {
+    await pgliteClient.exec("BEGIN;");
+    for (const p of SEED_PRODUCTS) {
+      await pgliteClient.query(
+        "UPDATE products SET images = $1 WHERE sku = $2",
+        [JSON.stringify(p.images), p.sku]
+      );
+    }
+    await pgliteClient.exec("COMMIT;");
   }
 }
