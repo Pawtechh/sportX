@@ -36,8 +36,10 @@ app.use((err: any, _req: express.Request, res: express.Response, _next: express.
   res.status(500).json({ error: err.message ?? "Error interno" });
 });
 
+app.get("/healthz", (_req, res) => res.status(200).send("OK"));
+
 async function start() {
-  const port = Number(process.env.PORT ?? 3001);
+  const port = Number(process.env.PORT || 10000);
   app.listen(port, "0.0.0.0", () => {
     console.log(`SportX API → http://0.0.0.0:${port}`);
   });
