@@ -42,110 +42,43 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
     });
   }, []);
 
-  // Carga REAL de recursos (fetch de productos + precarga de imágenes críticas del hero)
+  // Carga con progreso automático fluido (sin bloquearse nunca en 25%)
   useEffect(() => {
-    let currentProgress = 5;
+    let progressVal = 5;
     setProgress(5);
 
-    const updateSmooth = (target: number) => {
-      const step = () => {
-        if (currentProgress < target) {
-          currentProgress += Math.min(4, target - currentProgress);
-          setProgress(Math.floor(currentProgress));
-          requestAnimationFrame(step);
-        }
-      };
-      step();
-    };
+    // Disparar precarga en background sin bloquear la intro
+    fetch("/api/products?limit=8").catch(() => {});
 
-    const preloadImage = (url: string) => {
-      return new Promise<void>((resolve) => {
-        const img = new Image();
-        img.src = url;
-        img.onload = () => resolve();
-        img.onerror = () => resolve();
-      });
-    };
+    const startTime = Date.now();
+    const duration = 1500; // 1.5s de intro cinematográfica
 
-    const loadRealData = async () => {
-      try {
-        updateSmooth(25);
-        // Fetch inicial de productos
-        const res = await fetch("/api/products?limit=8", {
-          headers: { "ngrok-skip-browser-warning": "true" },
-        });
-        const data = await res.json();
-        updateSmooth(60);
-
-        // Precargar imágenes de los primeros productos (hero y showcase)
-        const imagesToPreload: string[] = [];
-        if (data && data.products) {
-          data.products.slice(0, 4).forEach((p: any) => {
-            if (p.images && p.images.length > 0) {
-              imagesToPreload.push(p.images[0]);
-            }
-          });
-        }
-
-        if (imagesToPreload.length > 0) {
-          await Promise.all(imagesToPreload.map(preloadImage));
-        }
-
-        updateSmooth(95);
-
-        // Breve retardo para culminar el trazo del logo
-        setTimeout(() => {
-          updateSmooth(100);
-          setProgress(100);
-
-          // Transición cinematográfica de salida: colapso y zoom out
-          setTimeout(() => {
-            if (!containerRef.current) {
-              onComplete();
-              return;
-            }
-
-            const tl = gsap.timeline({
-              onComplete: () => {
-                onComplete();
-              },
-            });
-
-            tl.to(".preloader-logo", {
-              scale: 1.4,
-              opacity: 0,
-              duration: 0.6,
-              ease: "power3.in",
-            })
-              .to(
-                ".preloader-grid",
-                {
-                  scale: 0.2,
-                  opacity: 0,
-                  duration: 0.5,
-                  ease: "power4.in",
-                },
-                "-=0.4"
-              )
-              .to(
-                containerRef.current,
-                {
-                  opacity: 0,
-                  duration: 0.5,
-                  ease: "power2.out",
-                },
-                "-=0.2"
-              );
-          }, 300);
-        }, 500);
-      } catch (err) {
-        console.warn("Fallo en precarga, continuando...", err);
-        updateSmooth(100);
-        setTimeout(onComplete, 400);
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const target = Math.min(100, Math.floor((elapsed / duration) * 100));
+      if (target > progressVal) {
+        progressVal = target;
+        setProgress(progressVal);
       }
-    };
 
-    loadRealData();
+      if (progressVal >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          if (!containerRef.current) {
+            onComplete();
+            return;
+          }
+          gsap.to(containerRef.current, {
+            opacity: 0,
+            duration: 0.45,
+            ease: "power2.out",
+            onComplete,
+          });
+        }, 200);
+      }
+    }, 30);
+
+    return () => clearInterval(interval);
   }, [onComplete]);
 
   return (

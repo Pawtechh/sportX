@@ -3,8 +3,8 @@ services:
     name: sportx-ecommerce
     runtime: node
     plan: free
-    buildCommand: npm install --include=dev && npx vite build
-    startCommand: npm start
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: node --max-old-space-size=256 dist/server.js
     envVars:
       - key: NODE_ENV
         value: production
